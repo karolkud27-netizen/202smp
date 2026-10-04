@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>202SMP - Oficjalna Strona Serwera Bloxd.io</title>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --bg-card: #131b2e;
+            --bg-card-hover: #1c2742;
+            --primary: #a855f7;
+            --primary-hover: #9333ea;
+            --secondary: #06b6d4;
+            --accent: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #263352;
+            --success: #10b981;
+            --danger: #ef4444;
+            --glow-purple: rgba(168, 85, 247, 0.25);
+            --glow-cyan: rgba(6, 182, 212, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+        }
+
+        /* Top Notification Bar */
+        .top-bar {
+            background: linear-gradient(90deg, #7c3aed, #c026d3, #2563eb);
+            color: white;
+            text-align: center;
+            padding: 12px 15px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(9, 13, 22, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            text-shadow: 0 0 15px var(--glow-purple);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+            text-shadow: 0 0 10px var(--glow-cyan);
+        }
+
+        .btn-copy-ip {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--glow-purple);
+        }
+
+        .btn-copy-ip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 20px 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #c026d3, #a855f7, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 15px rgba(168, 85, 247, 0.2));
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 35px auto;
+        }
+
+        .server-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--success);
+        }
+
+        /* Sections General */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(19, 27, 46, 0.7) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 30px var(--glow-purple);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(6, 182, 212, 0.15));
+            border: 1px solid var(--border-color);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .price-tag {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .card-features li {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .card-features li i {
+            color: var(--success);
+        }
+
+        .btn-order {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .btn-order:hover {
+            opacity: 0.95;
+            transform: scale(1.01);
+        }
+
+        /* Order Form Section */
+        .order-section {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(19, 27, 46, 0.9) 100%);
+            border: 2px solid var(--primary);
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 0 35px var(--glow-purple);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 12px var(--glow-cyan);
+        }
+
+        .order-summary {
+            background-color: var(--bg-dark);
+            border-radius: 16px;
+            padding: 22px;
+            margin-top: 25px;
+            border: 1px dashed var(--border-color);
+        }
+
+        /* Custom Crafting Table */
+        .crafting-grid {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .craft-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .craft-item:last-child {
+            border-bottom: none;
+        }
+
+        .craft-ingredients {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .badge {
+            background-color: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Rules Accordion */
+        .rule-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 15px;
+            transition: border-color 0.2s;
+        }
+
+        .rule-box:hover {
+            border-color: var(--secondary);
+        }
+
+        .rule-box h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Toast Alert */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 14px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(150%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            .order-section {
+                padding: 22px;
+            }
+            .craft-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-message">Skopiowano IP serwera!</span>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        🎉 Aktualny Event: Minerałowy z okazji rozpoczęcia roku szkolnego! Poluj na zombie i zbieraj AMMO!
+    </div>
+
+    <!-- Header / Nav -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-cube" style="color: var(--primary);"></i>
+                202<span>SMP</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#regulamin">Regulamin</a></li>
+                <li><a href="#eventy">Eventy</a></li>
+                <li><a href="#crafting">Craftingi</a></li>
+                <li><a href="#skrzynie">Skrzynie</a></li>
+                <li><a href="#rangi">Rangi i Sklep</a></li>
+            </ul>
+            <button class="btn-copy-ip" onclick="copyIP()">
+                <i class="fa-solid fa-copy"></i>
+                IP: 202smp202
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="server-status-badge">
+            <span class="status-dot"></span>
+            Serwer Online | Wymiar Skałkowy | Wieczny Dzień
+        </div>
+        <h1>Witaj na 202SMP w Bloxd.io!</h1>
+        <p>Najlepszy serwer survival w Bloxd.io z własnymi kustomowymi itemami, misjami, skrzyniami oraz unikalnymi rangami kupowanymi za walutę w grze!</p>
+        <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            <button class="btn-copy-ip" style="padding: 14px 28px; font-size: 1.1rem;" onclick="copyIP()">
+                <i class="fa-solid fa-gamepad"></i> Kopiuj IP i Dołącz
+            </button>
+            <a href="#rangi" class="btn-order" style="width: auto; padding: 14px 28px; font-size: 1.1rem; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: none;">
+                <i class="fa-solid fa-cart-shopping"></i> Przejdź do Sklepu
+            </a>
+        </div>
+    </div>
+
+    <!-- 1. REGULAMIN (NAJPIERW) -->
+    <section id="regulamin">
+        <h2 class="section-title">📜 Regulamin Serwera</h2>
+        <p class="section-subtitle">Nieznajomość regulaminu nie zwalnia z jego przestrzegania!</p>
+
+        <div class="rule-box">
+            <h3><i class="fa-solid fa-users"></i> 1. Zasady Ogólne i Szacunek</h3>
+            <p>Odnosimy się do siebie z szacunkiem. Wyzwiska, mowa nienawiści oraz nękanie są zakazane. Unikaj nadmiernego przeklinania, prowokowania kłótni i spamu.</p>
+        </div>
+
+        <div class="rule-box">
+            <h3><i class="fa-solid fa-shield-cat"></i> 2. Treści i Reklama</h3>
+            <p>Pisanie na odpowiednich kanałach. Zakaz wysyłania treści NSFW, drastycznych oraz reklamowania innych serwerów bez zgody Administracji.</p>
+        </div>
+
+        <div class="rule-box">
+            <h3><i class="fa-solid fa-coins"></i> 3. Regulamin Zwrotów i Ulepszeń Rang</h3>
+            <p>Jeśli posiadasz Rangę VIP na zawsze i zdecydujesz się na zakup Rangi PRO202 na zawsze, masz prawo ubiegać się o zwrot 25% kosztu poprzedniej rangi!</p>
+        </div>
+    </section>
+
+    <!-- 2. EVENTY -->
+    <section id="eventy">
+        <h2 class="section-title">🎉 Aktualne Eventy</h2>
+        <p class="section-subtitle">Bierz udział w wydarzeniach i zdobywaj unikalne nagrody na serwerze!</p>
+
+        <div class="card" style="border-color: var(--accent); background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.05));">
+            <div class="card-header">
+                <div class="card-icon" style="color: var(--accent);"><i class="fa-solid fa-fire"></i></div>
+                <div>
+                    <div class="card-title">Event Minerałowy</div>
+                    <span class="badge" style="background-color: var(--accent); color: black; font-weight: bold;">AKTYWNY</span>
+                </div>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">
+                Z okazji rozpoczęcia roku szkolnego odpalamy specjalny Event Minerałowy! Poluj na potwory i zombie na mapie, zbieraj unikalny item <strong>AMMO</strong> i wymieniaj go na rzadkie przedmioty u Admina!
+            </p>
+            <ul class="card-features">
+                <li><i class="fa-solid fa-check"></i> Drop waluty AMMO ze specjalnych mobów</li>
+                <li><i class="fa-solid fa-check"></i> Zwiększony drop minerałów w Wymiarze Skałkowym</li>
+                <li><i class="fa-solid fa-check"></i> Ekskluzywne nagrody w skrzyniach eventowych</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 3. CRAFTINGI -->
+    <section id="crafting">
+        <h2 class="section-title">⚒️ Legendarne Craftingi</h2>
+        <p class="section-subtitle">Sprawdź, z jakich składników scraftować specjalne przedmioty na serwerze!</p>
+
+        <div class="crafting-grid">
+            <div class="craft-item">
+                <div>
+                    <strong>Totem Odrodzenia (5 sztuk z Code Bloka)</strong>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">Daje odnowienie zdrowia do 40 HP + 20 Shielda i efekt PRO202!</div>
+                </div>
+                <div class="craft-ingredients">
+                    <span class="badge">50x Crystal</span>
+                    <span class="badge">15x Glowing Mushroom</span>
+                    <span class="badge">40x Moonstone</span>
+                </div>
+            </div>
+
+            <!-- NIEDŹWIEDZIE BUTY (ZDOBYTE) -->
+            <div class="craft-item" style="position: relative; opacity: 0.85; padding: 25px 15px; background: rgba(16, 185, 129, 0.04); border-radius: 12px; margin: 15px 0;">
+                
+                <!-- Zielona kreska przekreślająca -->
+                <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 5px; background-color: var(--success); box-shadow: 0 0 12px var(--success); transform: translateY(-50%); z-index: 2;"></div>
+
+                <div style="width: 100%;">
+                    <div>
+                        <strong>Niedźwiedzie Buty [LEGENDA]</strong>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Potężne legendarne buty z wymiaru skałkowego.</div>
+                    </div>
+                    <div class="craft-ingredients" style="margin-top: 10px;">
+                        <span class="badge">100x Glowing Mushroom</span>
+                        <span class="badge">100x Crystal</span>
+                        <span class="badge">999x Czarne Kulki</span>
+                        <span class="badge">100x Perły</span>
+                        <span class="badge">999x Firecracker Pebble</span>
+                        <span class="badge">999x Diamentowe Kolce</span>
+                        <span class="badge">10x Fur</span>
+                        <span class="badge">Inne (Ser, Mleko, Ryby, Trufle)</span>
+                    </div>
+
+                    <!-- Napis pośrodku pod kreską -->
+                    <div style="text-align: center; margin-top: 20px; font-weight: 800; font-size: 1.4rem; color: var(--success); text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);">
+                        ✅ ZOSTAŁY ZDOBYTE
+                    </div>
+                </div>
+            </div>
+
+            <div class="craft-item">
+                <div>
+                    <strong>RPG (Obszar 5x5)</strong>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">Niszczycielska broń dystansowa.</div>
+                </div>
+                <div class="craft-ingredients">
+                    <span class="badge">1x Stick</span>
+                    <span class="badge">1x TNT</span>
+                    <span class="badge">1x Wzmocniony Messy Stone</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. DROP ZE SKRZYŃ -->
+    <section id="skrzynie">
+        <h2 class="section-title">📦 Drop ze Skrzyń</h2>
+        <p class="section-subtitle">Otwieraj skrzynie zdobywane w wydarzeniach i za walkę!</p>
+
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-title">🎁 Skrzynia 202smp</div>
+                <div class="price-tag">Wykup za Klucz 202</div>
+                <ul class="card-features">
+                    <li><i class="fa-solid fa-shield"></i> Totem (20% szansy)</li>
+                    <li><i class="fa-solid fa-khanda"></i> Diamentowa Włócznia (13%)</li>
+                    <li><i class="fa-solid fa-apple-whole"></i> 2000x Mango (20%)</li>
+                    <li><i class="fa-solid fa-gem"></i> 10x Blok Diamentowy (50%)</li>
+                    <li><i class="fa-solid fa-burst"></i> 999x Fajerwerki (50%)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🪨 Skrzynia Skałkowa</div>
+                <div class="price-tag">Koszt: 10x Moonstone Trophy</div>
+                <ul class="card-features">
+                    <li><i class="fa-solid fa-bomb"></i> 50x RPG</li>
+                    <li><i class="fa-solid fa-balloon"></i> 8x Balonik</li>
+                    <li><i class="fa-solid fa-rocket"></i> 8x RPG</li>
+                    <li><i class="fa-solid fa-moon"></i> 10x Moonstone</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-title">✨ Skrzynia Rzadka</div>
+                <div class="price-tag">Koszt: 15 Zielonych Crystal</div>
+                <ul class="card-features">
+                    <li><i class="fa-solid fa-cube"></i> 15x Iron</li>
+                    <li><i class="fa-solid fa-gem"></i> 3x Diamenty</li>
+                    <li><i class="fa-solid fa-fire"></i> 20x Fajerwerki</li>
+                    <li><i class="fa-solid fa-smog"></i> 50x Węgiel</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. RANGI I ZAMÓWIENIA (PRZEDOSTATNIE) -->
+    <section id="rangi">
+        <h2 class="section-title">💎 Rangi i Sklep Serwerowy</h2>
+        <p class="section-subtitle">Kupuj rangi za walutę zdobywaną bezpośrednio w grze!</p>
+
+        <div class="grid-2">
+            <!-- VIP -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fa-solid fa-star"></i></div>
+                    <div>
+                        <div class="card-title">Ranga VIP</div>
+                        <span class="badge">Startowa Ranga Premium</span>
+                    </div>
+                </div>
+                <div class="price-tag">$1,800,000 / 20 dni <br><small style="font-size: 0.9rem; color: var(--text-muted);">$18,000,000 Na Zawsze</small></div>
+                <ul class="card-features">
+                    <li><i class="fa-solid fa-check"></i> Efekt Haste 1 (Szybsze kopanie)</li>
+                    <li><i class="fa-solid fa-check"></i> Efekt Speed 1 (Szybsze poruszanie się)</li>
+                    <li><i class="fa-solid fa-check"></i> Unikalny prefiks na czacie</li>
+                </ul>
+                <button class="btn-order" onclick="selectItem('Ranga VIP (20 dni)', 1800000)">Zamów na 20 dni</button>
+                <button class="btn-order" onclick="selectItem('Ranga VIP (Na zawsze)', 18000000)" style="margin-top: 8px; background: transparent; border: 1px solid var(--primary); box-shadow: none;">Zamów Na Zawsze</button>
+            </div>
+
+            <!-- PRO202 -->
+            <div class="card" style="border-color: var(--primary); box-shadow: 0 10px 30px var(--glow-purple);">
+                <div class="card-header">
+                    <div class="card-icon" style="color: var(--accent);"><i class="fa-solid fa-crown"></i></div>
+                    <div>
+                        <div class="card-title">Ranga PRO202</div>
+                        <span class="badge" style="background-color: var(--primary); color: white;">Najpopularniejsza</span>
+                    </div>
+                </div>
+                <div class="price-tag">$8,000,000 / 20 dni <br><small style="font-size: 0.9rem; color: var(--text-muted);">$39,000,000 Na Zawsze</small></div>
+                <ul class="card-features">
+                    <li><i class="fa-solid fa-check"></i> Efekt Haste (Szybsze kopanie)</li>
+                    <li><i class="fa-solid fa-check"></i> Efekt Speed (Szybki bieg)</li>
+                    <li><i class="fa-solid fa-check"></i> Efekt Damage (Zwiększone obrażenia)</li>
+                    <li><i class="fa-solid fa-check"></i> Efekt Health Regen (Regeneracja zdrowia)</li>
+                    <li><i class="fa-solid fa-check"></i> Efekt Health Resistance (Odporność)</li>
+                </ul>
+                <button class="btn-order" onclick="selectItem('Ranga PRO202 (20 dni)', 8000000)">Zamów na 20 dni</button>
+                <button class="btn-order" onclick="selectItem('Ranga PRO202 (Na zawsze)', 39000000)" style="margin-top: 8px; background: transparent; border: 1px solid var(--primary); box-shadow: none;">Zamów Na Zawsze</button>
+            </div>
+        </div>
+
+        <!-- Formularz Zamówień -->
+        <div id="zamowienie" class="order-section">
+            <h2 class="section-title" style="text-align: left;"><i class="fa-solid fa-basket-shopping"></i> Formularz Zamówienia</h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">Wybierz rangę lub pakiet, podaj swój nick z gry i kliknij wysłanie zamówienia, które automatycznie trafi na nasz serwer Discord!</p>
+
+            <form id="orderForm" onsubmit="handleOrderSubmit(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="playerNick">Twój Nick w Bloxd.io:</label>
+                        <input type="text" id="playerNick" class="form-control" placeholder="np. Sharpik202" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="discordNick">Twój Nick na Discordzie:</label>
+                        <input type="text" id="discordNick" class="form-control" placeholder="np. sharpik202" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="selectedProduct">Wybierz Przedmiot / Rangę / Pakiet:</label>
+                    <select id="selectedProduct" class="form-control" onchange="updateFormPrice()">
+                        <optgroup label="--- RANGI ---">
+                            <option value="Ranga VIP (20 dni)" data-price="1800000">Ranga VIP (20 dni) - $1,800,000</option>
+                            <option value="Ranga VIP (Na zawsze)" data-price="18000000">Ranga VIP (Na zawsze) - $18,000,000</option>
+                            <option value="Ranga PRO202 (20 dni)" data-price="8000000">Ranga PRO202 (20 dni) - $8,000,000</option>
+                            <option value="Ranga PRO202 (Na zawsze)" data-price="39000000">Ranga PRO202 (Na zawsze) - $39,000,000</option>
+                        </optgroup>
+                        <optgroup label="--- PAKIETY Z RANGAMI I KLUCZAMI ---">
+                            <option value="Pakiet VIP (20 dni + Duży Pakiet Kluczy)" data-price="8100000">Pakiet VIP (20 dni + Duży Pakiet Kluczy) - $8,100,000</option>
+                            <option value="Pakiet VIP+ (Na zawsze + Ogromny Pakiet Kluczy)" data-price="18500000">Pakiet VIP+ (Na zawsze + Ogromny Pakiet Kluczy) - $18,500,000</option>
+                            <option value="Pakiet PRO (20 dni + Duży Pakiet Kluczy)" data-price="8450000">Pakiet PRO (20 dni + Duży Pakiet Kluczy) - $8,450,000</option>
+                            <option value="Pakiet PRO+ (Na zawsze + Ogromny Pakiet Kluczy)" data-price="39550000">Pakiet PRO+ (Na zawsze + Ogromny Pakiet Kluczy) - $39,550,000</option>
+                        </optgroup>
+                        <optgroup label="--- ZESTAWY FARMY ---">
+                            <option value="Zestaw Podstawowy (1x Spawner Zombie + 1x Lej + 1x Skrzynia)" data-price="2000">Zestaw Podstawowy - $2,000</option>
+                            <option value="Zestaw Podstawowy+ (4x Spawner Zombie + 4x Lej + 4x Skrzynia)" data-price="8000">Zestaw Podstawowy+ - $8,000</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- Kalkulator lei i skrzynek -->
+                <div class="form-group" style="background-color: var(--bg-dark); padding: 18px; border-radius: 14px; border: 1px solid var(--border-color);">
+                    <label><i class="fa-solid fa-calculator" style="color: var(--secondary);"></i> Kalkulator Lei i Skrzynek (Niestandardowa Ilość):</label>
+                    <div style="display: flex; gap: 15px; align-items: center; margin-top: 10px;">
+                        <input type="number" id="hopperCount" class="form-control" min="0" value="0" placeholder="Ilość kompletów (Lej + Skrzynka)" oninput="calculateCustomHoppers()">
+                        <div id="hopperCostResult" style="font-weight: 700; color: var(--accent); min-width: 150px;">Koszt: $0</div>
+                    </div>
+                    <small style="color: var(--text-muted); display: block; margin-top: 8px;">*Pierwsza para wynosi $800, każda kolejna +$850.</small>
+                </div>
+
+                <div class="order-summary">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <span style="color: var(--text-muted);">Łączny Koszt Zamówienia:</span>
+                            <h3 id="totalPriceDisplay" style="color: var(--accent); font-size: 1.9rem;">$1,800,000</h3>
+                        </div>
+                        <button type="submit" id="submitBtn" class="btn-order" style="width: auto; padding: 15px 35px; font-size: 1.1rem;">
+                            <i class="fa-solid fa-paper-plane"></i> Wyślij Zamówienie
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid var(--border-color); color: var(--text-muted);">
+        <p>© 2026 202SMP Bloxd.io Server. Wszelkie prawa zastrzeżone.</p>
+        <p style="font-size: 0.85rem; margin-top: 5px;">Właściciel & Admin: <strong>Admin202smp / Sharpik202</strong></p>
+    </footer>
+
+    <!-- Script Logic -->
+    <script>
+        function copyIP() {
+            const ip = "202smp202";
+            navigator.clipboard.writeText(ip).then(() => {
+                showToast("Skopiowano IP serwera: " + ip);
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            const toastMsg = document.getElementById("toast-message");
+            toastMsg.innerText = message;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+
+        function selectItem(itemName, price) {
+            const select = document.getElementById("selectedProduct");
+            select.value = itemName;
+            updateFormPrice();
+            document.getElementById("zamowienie").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateFormPrice() {
+            const select = document.getElementById("selectedProduct");
+            const selectedOption = select.options[select.selectedIndex];
+            const price = parseInt(selectedOption.getAttribute("data-price") || 0);
+            
+            document.getElementById("hopperCount").value = 0;
+            document.getElementById("hopperCostResult").innerText = "Koszt: $0";
+
+            document.getElementById("totalPriceDisplay").innerText = "$" + price.toLocaleString();
+        }
+
+        function calculateCustomHoppers() {
+            const count = parseInt(document.getElementById("hopperCount").value) || 0;
+            let total = 0;
+
+            if (count > 0) {
+                total = 800 + (count - 1) * 850;
+            }
+
+            document.getElementById("hopperCostResult").innerText = "Koszt: $" + total.toLocaleString();
+            
+            if (count > 0) {
+                document.getElementById("totalPriceDisplay").innerText = "$" + total.toLocaleString();
+            } else {
+                updateFormPrice();
+            }
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById("submitBtn");
+            submitBtn.innerText = "Wysyłanie...";
+            submitBtn.disabled = true;
+
+            const playerNick = document.getElementById("playerNick").value;
+            const discordNick = document.getElementById("discordNick").value;
+            const select = document.getElementById("selectedProduct");
+            const hopperCount = parseInt(document.getElementById("hopperCount").value) || 0;
+            
+            let itemText = select.value;
+            let finalPrice = document.getElementById("totalPriceDisplay").innerText;
+
+            if (hopperCount > 0) {
+                itemText = `Niestandardowy Zestaw Lei: ${hopperCount}x Lej + Skrzynka`;
+            }
+
+            const webhookUrl = "https://discord.com/api/webhooks/1556364739527839834/DGBHh5JSqPBlfGwtFfTfp5A5kX6DukXEx9jfFooQmZdK0ZNtkkJHld9p6ZcTz6fGeAzm";
+
+            const payloadData = {
+                embeds: [{
+                    title: "🛒 Nowe Zamówienie na 202SMP!",
+                    color: 11032055,
+                    fields: [
+                        { name: "👤 Nick Bloxd.io", value: playerNick, inline: true },
+                        { name: "💬 Discord", value: discordNick, inline: true },
+                        { name: "📦 Wybrany przedmiot", value: itemText, inline: false },
+                        { name: "💰 Kwota do zapłaty", value: finalPrice, inline: false }
+                    ],
+                    footer: { text: "System Zamówień 202SMP" },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            const formData = new FormData();
+            formData.append("payload_json", JSON.stringify(payloadData));
+
+            fetch(webhookUrl, {
+                method: "POST",
+                body: formData
+            }).then(response => {
+                if (response.ok || response.status === 204) {
+                    alert(`Dziękujemy ${playerNick}! Twoje zamówienie zostało pomyślnie wysłane na nasz Discord!`);
+                    showToast("Zamówienie wysłane!");
+                    document.getElementById("orderForm").reset();
+                    updateFormPrice();
+                } else {
+                    alert("Wystąpił problem z wysłaniem zamówienia. Upewnij się, że kanał Discord posiada ważny Webhook.");
+                }
+            }).catch(error => {
+                console.error("Błąd:", error);
+                alert("Nie udało się połączyć z Discordem.");
+            }).finally(() => {
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Wyślij Zamówienie';
+                submitBtn.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
